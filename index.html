@@ -1,1 +1,132 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Europe Bus Reservation – New Site Structure</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--tx:#1b2030;--mu:#6b7285;--bd:#e2e5ee;--ac:#2563eb;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1320;--card:#181d2e;--tx:#e8ebf5;--mu:#98a0b8;--bd:#2a3150;--ac:#6ea0ff;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f1320;--card:#181d2e;--tx:#e8ebf5;--mu:#98a0b8;--bd:#2a3150;--ac:#6ea0ff;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:1100px;margin:0 auto;padding:18px 14px}
+h1{font-size:22px;margin:0 0 4px}p.s{color:var(--mu);margin:0 0 14px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+button,.tb{font:inherit;border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:8px 14px;border-radius:9px;cursor:pointer}
+.tb.on,button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.sp{flex:1}.chip{background:var(--card);border:1px solid var(--bd);border-radius:20px;padding:3px 12px;font-size:13px;color:var(--mu)}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px;margin-bottom:14px}
+.pn{display:none}.pn.on{display:block}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:10px;font:13px ui-monospace,monospace}
+.cmp div{padding:10px;border-radius:10px;background:var(--bg);overflow-wrap:anywhere}
+summary{cursor:pointer;list-style:none;padding:2px 0}summary::-webkit-details-marker{display:none}
+summary::before{content:"▸ ";color:var(--mu)}details[open]>summary::before{content:"▾ "}
+.ch{margin-left:16px;border-left:1px dashed var(--bd);padding-left:10px}.leaf{padding:2px 0 2px 14px}
+.seg{font:600 13px ui-monospace,monospace}.old{color:var(--mu);font-size:11px;margin-left:8px;overflow-wrap:anywhere}
+.cnt{background:var(--bg);border:1px solid var(--bd);border-radius:10px;font-size:11px;padding:0 7px;margin-left:8px;color:var(--mu)}
+.nav{display:flex;gap:2px;flex-wrap:wrap;align-items:center;background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:6px 10px;position:relative;min-height:46px}
+.nav .m{position:relative}.nav .m.mg{position:static}
+.nav .m>a{display:block;padding:10px 12px;font-weight:600;cursor:pointer;border-radius:8px}
+.nav .m:hover>a{background:var(--bg);color:var(--ac)}
+.nav .btn>a{background:var(--ac);color:#fff!important;margin-left:6px}
+.dd{display:none;position:absolute;top:100%;left:0;min-width:240px;background:var(--card);border:1px solid var(--bd);border-radius:10px;box-shadow:0 12px 30px #0003;padding:6px;z-index:5}
+.m:hover>.dd{display:block}.dd.big{left:0;right:0;gap:12px;padding:10px}.m:hover>.dd.big{display:flex}
+.dd a{display:block;padding:7px 10px;border-radius:6px;cursor:pointer;font-size:14px}.dd a:hover{background:var(--bg);color:var(--ac)}
+.cl{width:210px;max-height:320px;overflow:auto;border-right:1px solid var(--bd)}.cr{flex:1;max-height:320px;overflow:auto}
+.cr .g{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}.cr b{display:block;padding:6px 10px;color:var(--mu);font-size:12px;text-transform:uppercase}
+#st{margin-top:10px;font:13px ui-monospace,monospace;color:var(--mu);min-height:20px;overflow-wrap:anywhere}#st i{color:var(--ac);font-style:normal}
+textarea{width:100%;height:230px;font:12px ui-monospace,monospace;background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:10px;padding:10px;box-sizing:border-box}
+input{font:inherit;padding:8px 12px;border:1px solid var(--bd);border-radius:9px;background:var(--card);color:var(--tx);width:min(420px,100%)}
+.tw{overflow-x:auto}table{border-collapse:collapse;width:100%;font:12px ui-monospace,monospace}td,th{border-bottom:1px solid var(--bd);padding:5px 8px;text-align:left;overflow-wrap:anywhere}td:nth-child(2){color:var(--mu)}
+@media(max-width:640px){.cmp{grid-template-columns:1fr}}
+</style></head><body><div class="w">
+<h1>Europe Bus Reservation – New Website Structure</h1>
+<p class="s">Flat 700+ URLs → clean folders: Language › Section › Country › City › Service. Pehle jaisa sab kuch covered hai (EN + FR).</p>
+<div class="bar"><button id="l0" class="on" onclick="setL(0)">🇬🇧 English URLs</button><button id="l1" onclick="setL(1)">🇫🇷 French URLs</button><span class="sp"></span><span class="chip" id="stat"></span></div>
+<div class="bar"><button class="tb on" data-t="p1">🌳 URL Tree</button><button class="tb" data-t="p2">🧭 Header Menu</button><button class="tb" data-t="p3">🔁 Old → New Map</button><button class="tb" data-t="p4">💻 Code</button></div>
 
+<div class="pn on" id="p1">
+<div class="card"><b>Pehle vs Baad me</b><div class="cmp" style="margin-top:8px"><div>❌ Before (flat)<br>/minibus-coach-hire-paris.html<br>/coach-minibus-hire-prices-wedding-paris.html</div><div>✅ After (structured)<br><span id="ex1"></span><br><span id="ex2"></span></div></div></div>
+<div class="bar"><button onclick="ex(1)">Expand all</button><button onclick="ex(0)">Collapse all</button><span class="chip">Har folder ke saath page-count; grey text = purana URL</span></div>
+<div class="card" id="tree"></div></div>
+
+<div class="pn" id="p2"><div class="card"><p class="s" style="margin-top:0">Hover over any menu item to see that page’s new URL below. Under Destinations, hover a country to see its cities (★ = full city microsite).</p>
+<nav class="nav" id="nav"></nav><div id="st">Hover over a menu item…</div></div></div>
+
+<div class="pn" id="p3"><div class="card"><input id="q" placeholder="Search old or new URL (e.g. paris, wedding, mariage)" oninput="tbl()"><p class="s" id="tc"></p><div class="tw"><table><thead><tr><th>Lang</th><th>Old URL</th><th>→ New URL</th></tr></thead><tbody id="tb"></tbody></table></div></div></div>
+
+<div class="pn" id="p4"><div class="card"><b>Header menu HTML</b> <button onclick="cp('c1')">Select all</button><textarea id="c1" readonly></textarea></div>
+<div class="card"><b>301 redirects (Apache .htaccess) – old → new</b> <button onclick="cp('c2')">Select all</button><textarea id="c2" readonly></textarea></div></div>
+</div>
+<script>
+const CO=[['belgium','belgique','brussels,antwerp,bruges,charleroi,namur'],
+['france','france','paris,nice,lyon,corsica:ajaccio+bastia+calvi+porto-vecchio,amiens,bordeaux,caen,cannes,carcassonne,cholet,grenoble,le-havre,lille,macon,marseille,nantes,rennes,rouen,strasbourg,tours'],
+['ireland','irlande','dublin,cork,dundalk,galway,limerick'],
+['italy','italie','florence,rome,milan,como,genoa,pisa,turin,varese,verona,sardinia:cagliari+nuoro+olbia+oristano+sassari,sicily:catania+marsala+palermo+syracuse'],
+['luxembourg','luxembourg','luxembourg-city'],['monaco','monaco',''],
+['netherlands','pays-bas','amsterdam,baarlo,eindhoven,the-hague,rotterdam,utrecht,zwolle'],
+['portugal','portugal','lisbon,carvoeiro,cascais,coimbra,evora,guimaraes,obidos,porto,tavira'],
+['spain','espagne','barcelona,madrid,alicante,almeria,benidorm,bilbao,burgos,cadiz,cartagena,cordoba,girona,granada,malaga,marbella,murcia,santiago-de-compostela,salamanca,sevilla,tarragona,toledo,valencia,valladolid,vigo'],
+['switzerland','suisse','zurich,basel,bern,davos,geneva,lausanne,lugano,montreux'],
+['united-kingdom','royaume-uni','london,edinburgh,bath,birmingham,cardiff,dover,glasgow,leeds,leicester,manchester,newcastle,southampton'],
+['austria','autriche','graz,innsbruck,salzburg,vienna,voralberg'],['croatia','croatie','dubrovnik,rovinj,sibenik,split,zadar,zagreb'],
+['czech-republic','republique-tcheque','prague,brno,cesky-krumlov,karlovy-vary,ostrava,turnov'],['denmark','danemark','aalborg,aarhus,copenhagen,esbjerg,skagen'],
+['finland','finlande','helsinki,oulu,tampere,turku,vaasa'],['germany','allemagne','berlin,dusseldorf,frankfurt,hamburg,munich,nuremberg,stuttgart'],
+['greece','grece','alexandroupoli,athens,larissa,thessaloniki,trikala,tripoli'],['hungary','hongrie','budapest,eger,gyor,siofok,tokaj'],
+['norway','norvege','alesund,oslo,stavanger,tromso,trondheim'],['poland','pologne','gdansk,krakow,tatras,warsaw,wroclaw,zakopane'],['sweden','suede','gothenburg,malmo,orebro,stockholm']];
+const FRC=Object.fromEntries('antwerp:anvers,london:londres,edinburgh:edimbourg,brussels:bruxelles,barcelona:barcelone,lisbon:lisbonne,cadiz:cadix,cartagena:carthagene,cordoba:cordoue,girona:gerone,granada:grenade,sevilla:seville,santiago-de-compostela:saint-jacques-de-compostelle,salamanca:salamanque,tarragona:tarragone,toledo:tolede,valencia:valence,murcia:murcie,catania:catane,como:come,genoa:genes,palermo:palerme,pisa:pise,sicily:sicile,corsica:corse,sardinia:sardaigne,verona:verone,luxembourg-city:luxembourg-ville,the-hague:la-haye,basel:bale,bern:berne,geneva:geneve,dover:douvres,frankfurt:francfort,hamburg:hambourg,vienna:vienne,salzburg:salzbourg,copenhagen:copenhague,athens:athenes,thessaloniki:thessalonique,krakow:cracovie,warsaw:varsovie,gothenburg:goteborg'.split(',').map(x=>x.split(':')));
+const fc=s=>FRC[s]||s, cap=s=>s.split('-').map(w=>w[0].toUpperCase()+w.slice(1)).join(' ');
+const TOP=['paris','amsterdam','london','nice','barcelona','milan','edinburgh','brussels'];
+const T=[['about-us','a-propos'],['services/private-coach-hire','services/location-autocar-privatif'],['services/minibus-with-driver','services/minibus-avec-chauffeur'],['services','services'],['services/transfers','services/transferts'],['services/day-trips','services/excursions-journee'],['services/multi-day-tours','services/voyages-sejours'],['prices','tarifs'],['prices/airport-station-transfer','tarifs/transfert-aeroport-gare'],['prices/city-transfer','tarifs/transfert-ville'],['prices/tourism-trips','tarifs/sejours-touristiques'],['prices/corporate-travel','tarifs/voyages-entreprise'],['prices/school-trips','tarifs/voyages-scolaires'],['prices/event-transport','tarifs/evenementiel'],['prices/sporting-events','tarifs/evenements-sportifs'],['prices/weddings','tarifs/mariages'],['prices/music-tours-shows','tarifs/concerts-spectacles'],['about-us/our-commitments','a-propos/nos-engagements']];
+const LB=[['About Us','À propos'],['Private Coach Hire','Autocar privatif'],['Minibus with Driver','Minibus avec chauffeur'],['All Services','Tous les services'],['Transfers','Transferts'],['Day Trips','Excursions à la journée'],['Multi-Day Tours','Voyages & séjours'],['Prices Overview','Tarifs'],['Airport & Station Transfer','Transfert aéroport & gare'],['City Transfer','Transfert en ville'],['Tourism Trips','Séjours touristiques'],['Corporate Travel','Voyages d’entreprise'],['School Trips','Voyages scolaires'],['Event Transport','Événementiel'],['Sporting Events','Événements sportifs'],['Weddings','Mariages'],['Music Tours & Shows','Concerts & spectacles'],['Our Commitments','Nos engagements']];
+const IN=[['information/local-service','informations/service-local','Local Service','Service local','local-service-bus-minibus-driver','local-service-autocar-minibus-chauffeur'],['information/partnerships','informations/partenariats','Partnerships','Partenariats','bus-hire-partnership-travel-professionnal','location-autocar-bus-agence-voyage-professionnel'],['information/driving-regulations','informations/reglementation','Driving Regulations','Réglementation','europe-uk-driving-regulation-rent-bus-driver','louer-bus-autocar-chauffeur-reglementation'],['information/faq','informations/faq','FAQ','FAQ','faq-minibus-charter-bus-hire-europe-UK','faq-location-autocar-minibus-chauffeur-europe-uk']];
+const SE=['about-us-coach-minibus-booking-service','private-coach-hire','minibus-coach-hire-driver','bus-hire-service','bus-hire-service-transfer','bus-hire-service-one-day-trip','bus-hire-service-multi-day-trip-tours','coach-minibus-hire-prices',...['station-airport-transfer','city-transfer','tourism-trip','corporate-travel','school-trip','event-transport-management','sporting-event','wedding','music-tour-show'].map(x=>'coach-minibus-hire-prices-'+x),'our-commitments-minibus-coach-driver-rental'];
+const A='service-location-d%E2%80%99autocars-';
+const SF=['louer-autocar-bus-chauffeur','louer-car-bus','louer-minibus-chauffeur','service-location-bus','service-transfert-location-bus','service-journee-excursion-location-bus','service-voyage-sejour-location-bus',...['minibus','transfert-aeroport-gare','transfert-ville','sejour-touristique','voyage-entreprise','voyage-scolaire','evenementiel','evenement-sportif','mariage','concert-spectacle'].map(x=>A+x),"location-d'autocars"];
+const tok=co=>co[2].split(',').filter(Boolean).map(t=>t.includes(':')?{r:t.split(':')[0],cs:t.split(':')[1].split('+')}:{c:t});
+const eo=i=>SE[i]+([0,7,17].includes(i)?'':i==8?'-europe-uk-':(i==1||i==2)?'-europe-UK':'-europe-uk');
+const fo=i=>(i==2?'L'+SF[i].slice(1):SF[i])+(i==16?'-uk':'-europe-uk');
+function build(L){const R=[],P=L?'/fr/':'/en/',add=(o,n,e='.html')=>R.push({o:'/'+o+e,n});
+ if(L)add('location-autocar-minibus-chauffeur-europe-uk',P); else{R.push({o:'/',n:P});add('index',P)}
+ for(let i=0;i<18;i++)add(L?fo(i):eo(i),P+T[i][L]+'/');
+ IN.forEach(x=>add(x[4+L],P+x[L]+'/'));
+ add(L?'contact-location-autocar-minibus-europe-uk':'contact-europe-bus-reservation-minibus-coach-hire',P+'contact/');
+ if(!L){add('contact-europe-bus-reservation-minibus-coach-hire',P+'contact/','');add('terms','/legal/terms/');add('privacy','/legal/privacy/')}
+ const city=(base,c)=>{const s=L?fc(c):c,cb=base+s+'/';add(L?'location-autocar-minibus-chauffeur-'+fc(c):'minibus-coach-hire-'+c,cb);
+  if(TOP.includes(c))for(let i=0;i<18;i++)add(L?SF[i]+'-'+fc(c):SE[i]+'-'+c,cb+T[i][L]+'/')};
+ CO.forEach(co=>{const b=P+'destinations/'+co[L]+'/';add(L?'location-autocar-minibus-chauffeur-'+co[1]:'minibus-coach-hire-'+(co[0]=='united-kingdom'?'uk':co[0]),b);
+  tok(co).forEach(t=>{if(t.c)city(b,t.c);else{const rb=b+(L?fc(t.r):t.r)+'/';add(L?'location-autocar-minibus-chauffeur-'+fc(t.r):'minibus-coach-hire-'+t.r,rb);t.cs.forEach(c=>city(rb,c))}})});
+ return R}
+function MENU(){const p=L?'/fr/':'/en/',u=i=>p+T[i][L]+'/',lb=i=>LB[i][L],g=i=>[lb(i),u(i)];
+ const dest=CO.map(co=>{const b=p+'destinations/'+co[L]+'/',k=[];
+  const ci=(bb,c,ind)=>k.push([cap(L?fc(c):c),bb+(L?fc(c):c)+'/',TOP.includes(c),0]);
+  tok(co).forEach(t=>{if(t.c)ci(b,t.c);else{const rb=b+(L?fc(t.r):t.r)+'/';k.push([cap(L?fc(t.r):t.r),rb,0,1]);t.cs.forEach(c=>ci(rb,c))}});
+  return [cap(co[L]),b,k]});
+ return [{t:L?'Accueil':'Home',u:p},{t:lb(0),k:[g(0),g(17),[IN[1][2+L],p+IN[1][L]+'/']]},{t:L?'Services':'Services',k:[3,1,2,4,5,6].map(g)},{t:lb(7),k:[7,8,9,10,11,12,13,14,15,16].map(g)},{t:'Destinations',mega:1,k:dest},{t:'Information',k:[0,2,3].map(i=>[IN[i][2+L],p+IN[i][L]+'/'])},{t:'Contact',u:p+'contact/',btn:1}]}
+const CL={'about-us':'#a855f7','a-propos':'#a855f7',services:'#2563eb',prices:'#d97706',tarifs:'#d97706',destinations:'#16a34a',information:'#0d9488',informations:'#0d9488',contact:'#dc2626',legal:'#64748b'};
+let L=0,ALL=[];
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+function trie(R){const r={c:{},n:0};R.forEach(x=>{let y=r;x.n.split('/').filter(Boolean).forEach(p=>{y=y.c[p]??={c:{},n:0};y.n++});y.r=x});return r}
+const H=(x,k,d)=>{const ks=Object.keys(x.c),s=`<span class="seg" style="color:${CL[k]||'inherit'}">/${k}</span>${x.r?`<span class="old">← ${esc(x.r.o)}</span>`:''}`;
+ return ks.length?`<details ${d<2?'open':''}><summary>${s}<span class="cnt">${x.n}</span></summary><div class="ch">${ks.map(j=>H(x.c[j],j,d+1)).join('')}</div></details>`:`<div class="leaf">${s}</div>`};
+function nav(){const m=MENU();window.CI=m[4].k;
+ document.getElementById('nav').innerHTML=m.map(i=>i.mega?`<div class="m mg"><a>${i.t} ▾</a><div class="dd big"><div class="cl">${i.k.map((c,j)=>`<a data-u="${c[1]}" onmouseenter="mc(${j})">${c[0]}</a>`).join('')}</div><div class="cr" id="mc"></div></div></div>`:i.k?`<div class="m"><a>${i.t} ▾</a><div class="dd">${i.k.map(k=>`<a data-u="${k[1]}">${k[0]}</a>`).join('')}</div></div>`:`<div class="m ${i.btn?'btn':''}"><a data-u="${i.u}">${i.t}</a></div>`).join('')+`<span class="sp"></span><span class="chip">${L?'FR':'EN'} | ${L?'EN':'FR'}</span>`;mc(1)}
+function mc(j){const c=CI[j];document.getElementById('mc').innerHTML=`<b>${c[0]}</b><a data-u="${c[1]}"><strong>${L?'Tout':'All'} ${c[0]} →</strong></a><div class="g">${c[2].map(k=>`<a data-u="${k[1]}" ${k[3]?'style="font-weight:700"':''}>${k[2]?'★ ':''}${k[0]}</a>`).join('')}</div>`}
+document.addEventListener('mouseover',e=>{const a=e.target.closest&&e.target.closest('[data-u]');if(a)document.getElementById('st').innerHTML='🔗 <i>https://www.europebusreservation.com'+a.dataset.u+'</i>'});
+function code(m){return '<header class="site-header">\n <nav aria-label="Main">\n  <ul class="menu">\n'+m.map(i=>i.k?`   <li class="has-sub"><a href="#">${i.t}</a>${i.mega?' <!-- mega menu: countries → cities -->':''}\n    <ul class="sub">\n${i.k.map(k=>`     <li><a href="${k[1]}">${k[0]}</a></li>`).join('\n')}\n    </ul>\n   </li>`:`   <li${i.btn?' class="cta"':''}><a href="${i.u}">${i.t}</a></li>`).join('\n')+'\n  </ul>\n </nav>\n</header>'}
+function tbl(){const q=document.getElementById('q').value.toLowerCase(),f=ALL.filter(r=>(r.o+r.n).toLowerCase().includes(q));
+ document.getElementById('tc').textContent=`${f.length} matches (showing ${Math.min(f.length,400)}). 301 redirect old → new.`;
+ document.getElementById('tb').innerHTML=f.slice(0,400).map(r=>`<tr><td>${r.l}</td><td>${esc(r.o)}</td><td>${r.n}</td></tr>`).join('')}
+function render(){const R=build(L);
+ document.getElementById('tree').innerHTML=Object.keys(trie(R).c).map(k=>H(trie(R).c[k],k,0)).join('');
+ const p=L?'/fr/destinations/france/paris/':'/en/destinations/france/paris/';
+ document.getElementById('ex1').textContent=p;document.getElementById('ex2').textContent=p+T[15][L]+'/';
+ document.getElementById('stat').textContent=`${build(0).length} EN + ${build(1).length} FR = ${build(0).length+build(1).length} URLs`;
+ nav();document.getElementById('c1').value=code(MENU());
+ document.getElementById('c2').value=R.map(r=>`Redirect 301 ${r.o} ${r.n}`).join('\n')}
+function setL(v){L=v;document.getElementById('l0').classList.toggle('on',!v);document.getElementById('l1').classList.toggle('on',!!v);render()}
+function ex(v){document.querySelectorAll('#tree details').forEach(d=>d.open=!!v)}
+function cp(id){const t=document.getElementById(id);t.select();try{document.execCommand('copy')}catch(e){}}
+document.querySelectorAll('.tb').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tb').forEach(x=>x.classList.toggle('on',x==b));document.querySelectorAll('.pn').forEach(p=>p.classList.toggle('on',p.id==b.dataset.t))});
+ALL=[...build(0).map(r=>({...r,l:'EN'})),...build(1).map(r=>({...r,l:'FR'}))];
+render();tbl();
+</script></body></html>
